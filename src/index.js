@@ -146,7 +146,7 @@ class MainScene extends Phaser.Scene {
         for (let i = 0; i < 5; i++) {
             const x = i * 800;
             const height = Phaser.Math.Between(100, 200);
-            this.add.triangle(x, this.worldHeight - height, 0, height, 400, 0, 800, height, 0x4A4A4A)
+            this.add.triangle(x, this.worldHeight - height/2, 0, height, 400, 0, 800, height, 0x4A4A4A)
                 .setScrollFactor(0.2);
         }
 
@@ -154,7 +154,7 @@ class MainScene extends Phaser.Scene {
         for (let i = 0; i < 8; i++) {
             const x = i * 600;
             const height = Phaser.Math.Between(150, 250);
-            this.add.triangle(x, this.worldHeight - height, 0, height, 300, 0, 600, height, 0x3A3A3A)
+            this.add.triangle(x, this.worldHeight - height/2, 0, height, 300, 0, 600, height, 0x3A3A3A)
                 .setScrollFactor(0.4);
         }
 
