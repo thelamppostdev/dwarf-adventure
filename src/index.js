@@ -10,6 +10,11 @@ class MainScene extends Phaser.Scene {
         this.isJumping = false;
         this.worldWidth = 3200; // Larger world
         this.worldHeight = 600;
+        this.enemies = []; // Array to store all enemies
+        this.lastEnemySpawn = 0; // Track last enemy spawn time
+        this.enemySpawnInterval = 1000; // Spawn new enemies every second
+        this.isSwinging = false; // Track if axe is swinging
+        this.maxEnemies = 30; // Increased maximum number of enemies
     }
 
     create() {
@@ -261,6 +266,46 @@ class MainScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.dwarf, true, 0.1, 0.1);
         this.cameras.main.setBounds(0, 0, this.worldWidth, this.worldHeight);
         console.log('Camera set up');
+
+        // Create enemy sprites
+        const enemyGraphics = this.add.graphics();
+        
+        // Create orc sprite (green, slightly smaller than dwarf)
+        // Body (green)
+        enemyGraphics.fillStyle(0x228B22);
+        enemyGraphics.fillRect(8, 24, 16, 20);
+        
+        // Head
+        enemyGraphics.fillStyle(0x32CD32);
+        enemyGraphics.fillRect(8, 12, 16, 12);
+        
+        // Eyes (red)
+        enemyGraphics.fillStyle(0xFF0000);
+        enemyGraphics.fillRect(11, 16, 2, 2);  // Left eye
+        enemyGraphics.fillRect(19, 16, 2, 2);  // Right eye
+        
+        // Helmet (dark green)
+        enemyGraphics.fillStyle(0x006400);
+        enemyGraphics.fillRect(6, 8, 20, 8);
+        
+        // Legs (green)
+        enemyGraphics.fillStyle(0x228B22);
+        enemyGraphics.fillRect(12, 44, 8, 8);
+
+        enemyGraphics.generateTexture('orc', 44, 52);
+        enemyGraphics.clear();
+
+        // Create particle emitter for enemy death
+        this.deathParticles = this.add.particles(0, 0, 'orc', {
+            speed: { min: 50, max: 100 },
+            scale: { start: 0.3, end: 0 },
+            lifespan: 1000,
+            quantity: 15,
+            gravityY: 200,
+            alpha: { start: 0.8, end: 0 },
+            tint: 0x000000,
+            emitting: false
+        });
     }
 
     createParallaxBackground() {
@@ -417,6 +462,161 @@ class MainScene extends Phaser.Scene {
         }
     }
 
+    createOrcTexture(sizeMultiplier = 1.0) {
+        const baseWidth = 44;
+        const baseHeight = 52;
+        const width = baseWidth * sizeMultiplier;
+        const height = baseHeight * sizeMultiplier;
+        
+        const graphics = this.add.graphics();
+        
+        // Randomize skin tone (different shades of green)
+        const skinTones = [0x228B22, 0x32CD32, 0x006400, 0x556B2F];
+        const skinColor = Phaser.Math.RND.pick(skinTones);
+        
+        // Randomize armor color
+        const armorColors = [0x8B4513, 0x654321, 0x4B5320, 0x2F4F4F];
+        const armorColor = Phaser.Math.RND.pick(armorColors);
+        
+        // Body (scaled green)
+        graphics.fillStyle(skinColor);
+        graphics.fillRect(8 * sizeMultiplier, 24 * sizeMultiplier, 16 * sizeMultiplier, 20 * sizeMultiplier);
+        
+        // Head
+        graphics.fillStyle(skinColor);
+        graphics.fillRect(8 * sizeMultiplier, 12 * sizeMultiplier, 16 * sizeMultiplier, 12 * sizeMultiplier);
+        
+        // Eyes (red)
+        graphics.fillStyle(0xFF0000);
+        graphics.fillRect(11 * sizeMultiplier, 16 * sizeMultiplier, 2 * sizeMultiplier, 2 * sizeMultiplier);
+        graphics.fillRect(19 * sizeMultiplier, 16 * sizeMultiplier, 2 * sizeMultiplier, 2 * sizeMultiplier);
+        
+        // Random armor pieces
+        if (Phaser.Math.Between(0, 1) === 1) {
+            // Shoulder armor
+            graphics.fillStyle(armorColor);
+            graphics.fillRect(4 * sizeMultiplier, 20 * sizeMultiplier, 4 * sizeMultiplier, 8 * sizeMultiplier);
+            graphics.fillRect(28 * sizeMultiplier, 20 * sizeMultiplier, 4 * sizeMultiplier, 8 * sizeMultiplier);
+        }
+        
+        if (Phaser.Math.Between(0, 1) === 1) {
+            // Chest armor
+            graphics.fillStyle(armorColor);
+            graphics.fillRect(8 * sizeMultiplier, 24 * sizeMultiplier, 16 * sizeMultiplier, 8 * sizeMultiplier);
+        }
+        
+        // Random weapon
+        const weaponType = Phaser.Math.Between(0, 2);
+        if (weaponType === 0) {
+            // Club
+            graphics.fillStyle(0x8B4513);
+            graphics.fillRect(24 * sizeMultiplier, 20 * sizeMultiplier, 8 * sizeMultiplier, 4 * sizeMultiplier);
+            graphics.fillRect(28 * sizeMultiplier, 16 * sizeMultiplier, 4 * sizeMultiplier, 8 * sizeMultiplier);
+        } else if (weaponType === 1) {
+            // Axe
+            graphics.fillStyle(0x808080);
+            graphics.fillRect(24 * sizeMultiplier, 20 * sizeMultiplier, 8 * sizeMultiplier, 4 * sizeMultiplier);
+            graphics.fillRect(28 * sizeMultiplier, 16 * sizeMultiplier, 4 * sizeMultiplier, 8 * sizeMultiplier);
+        } else {
+            // Sword
+            graphics.fillStyle(0xC0C0C0);
+            graphics.fillRect(24 * sizeMultiplier, 16 * sizeMultiplier, 4 * sizeMultiplier, 12 * sizeMultiplier);
+        }
+        
+        // Legs
+        graphics.fillStyle(skinColor);
+        graphics.fillRect(12 * sizeMultiplier, 44 * sizeMultiplier, 8 * sizeMultiplier, 8 * sizeMultiplier);
+        
+        const textureKey = `orc-${Date.now()}-${Math.random()}`;
+        graphics.generateTexture(textureKey, width, height);
+        graphics.clear();
+        
+        return textureKey;
+    }
+
+    spawnEnemy() {
+        // Don't spawn if we've reached the maximum number of enemies
+        if (this.enemies.length >= this.maxEnemies) return;
+
+        // Spawn 2-4 enemies at random positions
+        const numToSpawn = Phaser.Math.Between(2, 4);
+        
+        for (let i = 0; i < numToSpawn; i++) {
+            // Random size between 0.8 and 1.5
+            const sizeMultiplier = Phaser.Math.FloatBetween(0.8, 1.5);
+            
+            // Get camera bounds
+            const camera = this.cameras.main;
+            const cameraLeft = camera.scrollX;
+            const cameraRight = camera.scrollX + camera.width;
+            
+            // Randomly choose to spawn on left or right side of screen
+            const spawnOnLeft = Phaser.Math.Between(0, 1) === 0;
+            const x = spawnOnLeft 
+                ? Phaser.Math.Between(50, cameraLeft - 50)  // Spawn left of camera
+                : Phaser.Math.Between(cameraRight + 50, this.worldWidth - 50);  // Spawn right of camera
+            
+            const y = this.worldHeight - 100; // Ground level
+            
+            const textureKey = this.createOrcTexture(sizeMultiplier);
+            const enemy = this.matter.add.sprite(x, y, textureKey, null, {
+                shape: 'rectangle',
+                friction: 0.5,
+                restitution: 0.2,
+                density: 0.001,
+                inertia: Infinity
+            });
+            
+            enemy.setFixedRotation();
+            enemy.setData('health', 1);
+            enemy.setData('sizeMultiplier', sizeMultiplier);
+            this.enemies.push(enemy);
+        }
+    }
+
+    updateEnemies() {
+        const currentTime = this.time.now;
+        
+        // Spawn new enemies if enough time has passed
+        if (currentTime - this.lastEnemySpawn > this.enemySpawnInterval) {
+            this.spawnEnemy();
+            this.lastEnemySpawn = currentTime;
+        }
+
+        // Update each enemy's behavior
+        this.enemies.forEach((enemy, index) => {
+            if (!enemy.active) return;
+
+            // Calculate direction to dwarf
+            const dx = this.dwarf.x - enemy.x;
+            const dy = this.dwarf.y - enemy.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Move towards dwarf if within chase range
+            if (distance < 400) {
+                const baseSpeed = 2.5;
+                const sizeMultiplier = enemy.getData('sizeMultiplier');
+                // Larger orcs move slightly slower
+                const speed = baseSpeed * (1 / sizeMultiplier);
+                const angle = Math.atan2(dy, dx);
+                enemy.setVelocityX(Math.cos(angle) * speed);
+            }
+
+            // Check for axe collision when swinging
+            if (this.isSwinging) {
+                const axeBounds = this.axe.getBounds();
+                const enemyBounds = enemy.getBounds();
+                
+                if (Phaser.Geom.Rectangle.Overlaps(axeBounds, enemyBounds)) {
+                    // Kill enemy
+                    this.deathParticles.explode(10, enemy.x, enemy.y);
+                    enemy.destroy();
+                    this.enemies.splice(index, 1);
+                }
+            }
+        });
+    }
+
     update() {
         if (!this.dwarf || !this.dwarf.body) return;
 
@@ -493,6 +693,9 @@ class MainScene extends Phaser.Scene {
                 }
             });
         }
+
+        // Update enemies
+        this.updateEnemies();
     }
 }
 
