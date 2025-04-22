@@ -53,47 +53,6 @@ class MainScene extends Phaser.Scene {
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(6, 20, 20, 8);
         
-        // Axe handle (dark brown with pattern)
-        dwarfGraphics.fillStyle(0x654321);
-        dwarfGraphics.fillRect(24, 28, 16, 4);
-        // Handle pattern
-        dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(26, 28, 2, 4);
-        dwarfGraphics.fillRect(30, 28, 2, 4);
-        dwarfGraphics.fillRect(34, 28, 2, 4);
-        
-        // Axe head (double-sided with patterns)
-        // Main blade body
-        dwarfGraphics.fillStyle(0xA0A0A0);
-        dwarfGraphics.fillRect(28, 20, 20, 20);  // Larger base for the head
-        
-        // Triangular cutouts (black)
-        dwarfGraphics.fillStyle(0x000000);
-        // Left side cutouts
-        dwarfGraphics.fillRect(32, 24, 2, 2);
-        dwarfGraphics.fillRect(32, 34, 2, 2);
-        // Right side cutouts
-        dwarfGraphics.fillRect(42, 24, 2, 2);
-        dwarfGraphics.fillRect(42, 34, 2, 2);
-        
-        // Edge details and highlights
-        dwarfGraphics.fillStyle(0x808080);
-        // Left blade
-        dwarfGraphics.fillRect(28, 20, 4, 20);
-        // Right blade
-        dwarfGraphics.fillRect(44, 20, 4, 20);
-        
-        // Sharp edge highlights
-        dwarfGraphics.fillStyle(0xFFFFFF);
-        // Left edge
-        dwarfGraphics.fillRect(28, 21, 1, 18);
-        // Right edge
-        dwarfGraphics.fillRect(47, 21, 1, 18);
-        
-        // Center geometric pattern
-        dwarfGraphics.fillStyle(0x909090);
-        dwarfGraphics.fillRect(36, 25, 4, 10);
-        
         // Belt
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(8, 36, 16, 2);
@@ -131,47 +90,6 @@ class MainScene extends Phaser.Scene {
         // Beard (darker brown)
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(6, 20, 20, 8);
-        
-        // Axe handle (dark brown with pattern)
-        dwarfGraphics.fillStyle(0x654321);
-        dwarfGraphics.fillRect(24, 28, 16, 4);
-        // Handle pattern
-        dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(26, 28, 2, 4);
-        dwarfGraphics.fillRect(30, 28, 2, 4);
-        dwarfGraphics.fillRect(34, 28, 2, 4);
-        
-        // Axe head (double-sided with patterns)
-        // Main blade body
-        dwarfGraphics.fillStyle(0xA0A0A0);
-        dwarfGraphics.fillRect(28, 20, 20, 20);  // Larger base for the head
-        
-        // Triangular cutouts (black)
-        dwarfGraphics.fillStyle(0x000000);
-        // Left side cutouts
-        dwarfGraphics.fillRect(32, 24, 2, 2);
-        dwarfGraphics.fillRect(32, 34, 2, 2);
-        // Right side cutouts
-        dwarfGraphics.fillRect(42, 24, 2, 2);
-        dwarfGraphics.fillRect(42, 34, 2, 2);
-        
-        // Edge details and highlights
-        dwarfGraphics.fillStyle(0x808080);
-        // Left blade
-        dwarfGraphics.fillRect(28, 20, 4, 20);
-        // Right blade
-        dwarfGraphics.fillRect(44, 20, 4, 20);
-        
-        // Sharp edge highlights
-        dwarfGraphics.fillStyle(0xFFFFFF);
-        // Left edge
-        dwarfGraphics.fillRect(28, 21, 1, 18);
-        // Right edge
-        dwarfGraphics.fillRect(47, 21, 1, 18);
-        
-        // Center geometric pattern
-        dwarfGraphics.fillStyle(0x909090);
-        dwarfGraphics.fillRect(36, 25, 4, 10);
         
         // Belt
         dwarfGraphics.fillStyle(0x8B4513);
@@ -212,47 +130,6 @@ class MainScene extends Phaser.Scene {
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(6, 20, 20, 8);
         
-        // Axe handle (dark brown with pattern)
-        dwarfGraphics.fillStyle(0x654321);
-        dwarfGraphics.fillRect(24, 28, 16, 4);
-        // Handle pattern
-        dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(26, 28, 2, 4);
-        dwarfGraphics.fillRect(30, 28, 2, 4);
-        dwarfGraphics.fillRect(34, 28, 2, 4);
-        
-        // Axe head (double-sided with patterns)
-        // Main blade body
-        dwarfGraphics.fillStyle(0xA0A0A0);
-        dwarfGraphics.fillRect(28, 20, 20, 20);  // Larger base for the head
-        
-        // Triangular cutouts (black)
-        dwarfGraphics.fillStyle(0x000000);
-        // Left side cutouts
-        dwarfGraphics.fillRect(32, 24, 2, 2);
-        dwarfGraphics.fillRect(32, 34, 2, 2);
-        // Right side cutouts
-        dwarfGraphics.fillRect(42, 24, 2, 2);
-        dwarfGraphics.fillRect(42, 34, 2, 2);
-        
-        // Edge details and highlights
-        dwarfGraphics.fillStyle(0x808080);
-        // Left blade
-        dwarfGraphics.fillRect(28, 20, 4, 20);
-        // Right blade
-        dwarfGraphics.fillRect(44, 20, 4, 20);
-        
-        // Sharp edge highlights
-        dwarfGraphics.fillStyle(0xFFFFFF);
-        // Left edge
-        dwarfGraphics.fillRect(28, 21, 1, 18);
-        // Right edge
-        dwarfGraphics.fillRect(47, 21, 1, 18);
-        
-        // Center geometric pattern
-        dwarfGraphics.fillStyle(0x909090);
-        dwarfGraphics.fillRect(36, 25, 4, 10);
-        
         // Belt
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(8, 36, 16, 2);
@@ -265,7 +142,56 @@ class MainScene extends Phaser.Scene {
         dwarfGraphics.generateTexture('dwarf-walk2', 44, 56);
         dwarfGraphics.clear();
 
+        // Create axe sprite
+        // Axe handle (dark brown with pattern)
+        dwarfGraphics.fillStyle(0x654321);
+        dwarfGraphics.fillRect(0, 0, 32, 4);
+        // Handle pattern
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(2, 0, 2, 4);
+        dwarfGraphics.fillRect(6, 0, 2, 4);
+        dwarfGraphics.fillRect(10, 0, 2, 4);
+        dwarfGraphics.fillRect(14, 0, 2, 4);
+        dwarfGraphics.fillRect(18, 0, 2, 4);
+        dwarfGraphics.fillRect(22, 0, 2, 4);
+        dwarfGraphics.fillRect(26, 0, 2, 4);
+        
+        // Axe head (double-sided with patterns)
+        dwarfGraphics.fillStyle(0xA0A0A0);
+        dwarfGraphics.fillRect(20, -16, 24, 24);
+        
+        // Triangular cutouts (black)
+        dwarfGraphics.fillStyle(0x000000);
+        // Left side cutouts
+        dwarfGraphics.fillRect(24, -12, 2, 2);
+        dwarfGraphics.fillRect(24, 0, 2, 2);
+        // Right side cutouts
+        dwarfGraphics.fillRect(36, -12, 2, 2);
+        dwarfGraphics.fillRect(36, 0, 2, 2);
+        
+        // Edge details and highlights
+        dwarfGraphics.fillStyle(0x808080);
+        // Left blade
+        dwarfGraphics.fillRect(20, -16, 4, 24);
+        // Right blade
+        dwarfGraphics.fillRect(40, -16, 4, 24);
+        
+        // Sharp edge highlights
+        dwarfGraphics.fillStyle(0xFFFFFF);
+        // Left edge
+        dwarfGraphics.fillRect(20, -15, 1, 22);
+        // Right edge
+        dwarfGraphics.fillRect(43, -15, 1, 22);
+        
+        // Center geometric pattern
+        dwarfGraphics.fillStyle(0x909090);
+        dwarfGraphics.fillRect(28, -8, 8, 16);
+
+        dwarfGraphics.generateTexture('axe', 44, 8);
+        dwarfGraphics.clear();
+
         const dwarfSprite = this.add.sprite(400, 300, 'dwarf-stand');
+        const axeSprite = this.add.sprite(400, 300, 'axe');
         
         // Create the walking animation
         this.anims.create({
@@ -276,6 +202,16 @@ class MainScene extends Phaser.Scene {
             ],
             frameRate: 8,
             repeat: -1
+        });
+
+        // Create the axe-swinging animation
+        this.anims.create({
+            key: 'swing',
+            frames: [
+                { key: 'dwarf-stand' }
+            ],
+            frameRate: 12,
+            repeat: 0
         });
 
         this.dwarf = this.matter.add.gameObject(dwarfSprite, {
@@ -310,9 +246,16 @@ class MainScene extends Phaser.Scene {
         this.keys = {
             A: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             D: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            W: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+            W: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            SPACE: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         };
         console.log('Controls set up');
+
+        // Store the axe sprite
+        this.axe = axeSprite;
+        this.axe.setOrigin(0.2, 0.5); // Set origin closer to the handle end for rotation
+        this.axe.setDepth(1); // Make sure axe appears above the dwarf
+        this.isSwinging = false;
 
         // Camera follow with bounds
         this.cameras.main.startFollow(this.dwarf, true, 0.1, 0.1);
@@ -484,24 +427,35 @@ class MainScene extends Phaser.Scene {
         // Get the current velocity
         const velocity = this.dwarf.body.velocity;
 
+        // Update axe position to follow dwarf
+        this.axe.x = this.dwarf.x + (this.dwarf.flipX ? -12 : 12);
+        this.axe.y = this.dwarf.y - 4;
+        
+        // Update axe origin and flip based on direction
+        if (!this.isSwinging) {
+            this.axe.flipX = this.dwarf.flipX;
+            // Set origin to the opposite end when flipped
+            this.axe.setOrigin(this.dwarf.flipX ? 0.8 : 0.2, 0.5);
+        }
+
         if (this.keys.A.isDown) {
             // Set exact X velocity for consistent movement
             this.dwarf.setVelocityX(-speed);
             this.dwarf.flipX = true;
-            if (!this.isJumping) {
+            if (!this.isJumping && !this.isSwinging) {
                 this.dwarf.play('walk', true);
             }
         } else if (this.keys.D.isDown) {
             // Set exact X velocity for consistent movement
             this.dwarf.setVelocityX(speed);
             this.dwarf.flipX = false;
-            if (!this.isJumping) {
+            if (!this.isJumping && !this.isSwinging) {
                 this.dwarf.play('walk', true);
             }
         } else {
             // Stop horizontal movement completely
             this.dwarf.setVelocityX(0);
-            if (!this.isJumping) {
+            if (!this.isJumping && !this.isSwinging) {
                 this.dwarf.stop();
                 this.dwarf.setTexture('dwarf-stand');
             }
@@ -516,6 +470,28 @@ class MainScene extends Phaser.Scene {
             this.isJumping = true;
             this.dwarf.stop();
             this.dwarf.setTexture('dwarf-stand');
+        }
+
+        // Swing axe when spacebar is pressed and not already swinging
+        if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE) && !this.isSwinging) {
+            this.isSwinging = true;
+            this.dwarf.play('swing');
+            
+            // Create a tween for the axe rotation
+            const swingAngle = this.dwarf.flipX ? 120 : -120;
+            this.tweens.add({
+                targets: this.axe,
+                angle: swingAngle,
+                duration: 100,
+                yoyo: true,
+                onComplete: () => {
+                    this.isSwinging = false;
+                    this.axe.angle = 0;
+                    this.axe.flipX = this.dwarf.flipX;
+                    // Reset origin after swing
+                    this.axe.setOrigin(this.dwarf.flipX ? 0.8 : 0.2, 0.5);
+                }
+            });
         }
     }
 }
