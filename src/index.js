@@ -25,17 +25,132 @@ class MainScene extends Phaser.Scene {
 
         // Create dwarf character
         const dwarfGraphics = this.add.graphics();
-        dwarfGraphics.fillStyle(0xFF0000);
-        dwarfGraphics.fillRect(0, 0, 32, 48);
-        dwarfGraphics.generateTexture('dwarf', 32, 48);
+        
+        // Create standing frame
+        // Body (blue outfit)
+        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillRect(8, 24, 16, 24);
+        
+        // Head
+        dwarfGraphics.fillStyle(0xFDB797);
+        dwarfGraphics.fillRect(8, 12, 16, 12);
+        
+        // Helmet (gray)
+        dwarfGraphics.fillStyle(0x808080);
+        dwarfGraphics.fillRect(6, 8, 20, 8);
+        
+        // Helmet horns (light gray)
+        dwarfGraphics.fillStyle(0xA9A9A9);
+        dwarfGraphics.fillRect(4, 4, 4, 8);  // Left horn
+        dwarfGraphics.fillRect(24, 4, 4, 8); // Right horn
+        
+        // Beard (brown)
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(6, 20, 20, 8);
+        
+        // Axe handle (brown)
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(24, 28, 8, 4);
+        
+        // Axe head (silver)
+        dwarfGraphics.fillStyle(0xC0C0C0);
+        dwarfGraphics.fillRect(28, 24, 12, 12);
 
-        const dwarfSprite = this.add.sprite(400, 300, 'dwarf');
+        // Legs together (standing)
+        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillRect(12, 48, 8, 8);  // Left leg
+        dwarfGraphics.fillRect(12, 48, 8, 8);  // Right leg
+
+        dwarfGraphics.generateTexture('dwarf-stand', 40, 56);
+        dwarfGraphics.clear();
+
+        // Create walking frame 1
+        // Body and upper parts (same as standing)
+        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillRect(8, 24, 16, 24);
+        
+        dwarfGraphics.fillStyle(0xFDB797);
+        dwarfGraphics.fillRect(8, 12, 16, 12);
+        
+        dwarfGraphics.fillStyle(0x808080);
+        dwarfGraphics.fillRect(6, 8, 20, 8);
+        
+        dwarfGraphics.fillStyle(0xA9A9A9);
+        dwarfGraphics.fillRect(4, 4, 4, 8);
+        dwarfGraphics.fillRect(24, 4, 4, 8);
+        
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(6, 20, 20, 8);
+        
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(24, 28, 8, 4);
+        
+        dwarfGraphics.fillStyle(0xC0C0C0);
+        dwarfGraphics.fillRect(28, 24, 12, 12);
+
+        // Legs apart (walking)
+        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillRect(8, 48, 8, 8);   // Left leg
+        dwarfGraphics.fillRect(16, 48, 8, 8);  // Right leg
+
+        dwarfGraphics.generateTexture('dwarf-walk1', 40, 56);
+        dwarfGraphics.clear();
+
+        // Create walking frame 2
+        // Body and upper parts (same as standing)
+        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillRect(8, 24, 16, 24);
+        
+        dwarfGraphics.fillStyle(0xFDB797);
+        dwarfGraphics.fillRect(8, 12, 16, 12);
+        
+        dwarfGraphics.fillStyle(0x808080);
+        dwarfGraphics.fillRect(6, 8, 20, 8);
+        
+        dwarfGraphics.fillStyle(0xA9A9A9);
+        dwarfGraphics.fillRect(4, 4, 4, 8);
+        dwarfGraphics.fillRect(24, 4, 4, 8);
+        
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(6, 20, 20, 8);
+        
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(24, 28, 8, 4);
+        
+        dwarfGraphics.fillStyle(0xC0C0C0);
+        dwarfGraphics.fillRect(28, 24, 12, 12);
+
+        // Legs more apart (walking)
+        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillRect(4, 48, 8, 8);   // Left leg
+        dwarfGraphics.fillRect(20, 48, 8, 8);  // Right leg
+
+        dwarfGraphics.generateTexture('dwarf-walk2', 40, 56);
+        dwarfGraphics.clear();
+
+        const dwarfSprite = this.add.sprite(400, 300, 'dwarf-stand');
+        
+        // Create the walking animation
+        this.anims.create({
+            key: 'walk',
+            frames: [
+                { key: 'dwarf-walk1' },
+                { key: 'dwarf-walk2' }
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
         this.dwarf = this.matter.add.gameObject(dwarfSprite, {
             shape: 'rectangle',
             friction: 0.5,
             restitution: 0.2,
-            density: 0.001
+            density: 0.001,
+            inertia: Infinity  // Prevents rotation
         });
+        
+        // Lock rotation of the dwarf
+        this.dwarf.setFixedRotation();
 
         // Add collision callback
         this.matter.world.on('collisionstart', (event) => {
@@ -157,14 +272,6 @@ class MainScene extends Phaser.Scene {
             this.add.triangle(x, this.worldHeight - height/2, 0, height, 300, 0, 600, height, 0x3A3A3A)
                 .setScrollFactor(0.4);
         }
-
-        // Trees (faster parallax)
-        for (let i = 0; i < 12; i++) {
-            const x = i * 400;
-            const height = Phaser.Math.Between(100, 150);
-            this.add.triangle(x, this.worldHeight - height, 0, height, 200, 0, 400, height, 0x2A5A2A)
-                .setScrollFactor(0.6);
-        }
     }
 
     createGround() {
@@ -237,20 +344,41 @@ class MainScene extends Phaser.Scene {
         const speed = 5;
         const jumpForce = -10;
 
+        // Get the current velocity
+        const velocity = this.dwarf.body.velocity;
+
         if (this.keys.A.isDown) {
+            // Set exact X velocity for consistent movement
             this.dwarf.setVelocityX(-speed);
             this.dwarf.flipX = true;
+            if (!this.isJumping) {
+                this.dwarf.play('walk', true);
+            }
         } else if (this.keys.D.isDown) {
+            // Set exact X velocity for consistent movement
             this.dwarf.setVelocityX(speed);
             this.dwarf.flipX = false;
+            if (!this.isJumping) {
+                this.dwarf.play('walk', true);
+            }
         } else {
+            // Stop horizontal movement completely
             this.dwarf.setVelocityX(0);
+            if (!this.isJumping) {
+                this.dwarf.stop();
+                this.dwarf.setTexture('dwarf-stand');
+            }
         }
+
+        // Preserve vertical velocity for jumping/falling
+        this.dwarf.setVelocityY(velocity.y);
 
         // Jump when W is pressed and not already jumping
         if (this.canJump && Phaser.Input.Keyboard.JustDown(this.keys.W) && !this.isJumping) {
             this.dwarf.setVelocityY(jumpForce);
             this.isJumping = true;
+            this.dwarf.stop();
+            this.dwarf.setTexture('dwarf-stand');
         }
     }
 }
@@ -266,7 +394,7 @@ const config = {
             debug: true,
             setBounds: {
                 left: true,
-                right: true,
+                right: false,
                 top: true,
                 bottom: true
             }
