@@ -27,105 +27,242 @@ class MainScene extends Phaser.Scene {
         const dwarfGraphics = this.add.graphics();
         
         // Create standing frame
-        // Body (blue outfit)
-        dwarfGraphics.fillStyle(0x4169E1);
+        // Body (orange/brown tunic)
+        dwarfGraphics.fillStyle(0xD2691E);
         dwarfGraphics.fillRect(8, 24, 16, 24);
         
         // Head
         dwarfGraphics.fillStyle(0xFDB797);
         dwarfGraphics.fillRect(8, 12, 16, 12);
         
-        // Helmet (gray)
-        dwarfGraphics.fillStyle(0x808080);
+        // Eyes (black)
+        dwarfGraphics.fillStyle(0x000000);
+        dwarfGraphics.fillRect(11, 16, 2, 2);  // Left eye
+        dwarfGraphics.fillRect(19, 16, 2, 2);  // Right eye
+        
+        // Helmet (bronze/gold)
+        dwarfGraphics.fillStyle(0xCD853F);
         dwarfGraphics.fillRect(6, 8, 20, 8);
         
-        // Helmet horns (light gray)
-        dwarfGraphics.fillStyle(0xA9A9A9);
-        dwarfGraphics.fillRect(4, 4, 4, 8);  // Left horn
-        dwarfGraphics.fillRect(24, 4, 4, 8); // Right horn
-        
-        // Beard (brown)
-        dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(6, 20, 20, 8);
-        
-        // Axe handle (brown)
-        dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(24, 28, 8, 4);
-        
-        // Axe head (silver)
-        dwarfGraphics.fillStyle(0xC0C0C0);
-        dwarfGraphics.fillRect(28, 24, 12, 12);
-
-        // Legs together (standing)
-        dwarfGraphics.fillStyle(0x4169E1);
-        dwarfGraphics.fillRect(12, 48, 8, 8);  // Left leg
-        dwarfGraphics.fillRect(12, 48, 8, 8);  // Right leg
-
-        dwarfGraphics.generateTexture('dwarf-stand', 40, 56);
-        dwarfGraphics.clear();
-
-        // Create walking frame 1
-        // Body and upper parts (same as standing)
-        dwarfGraphics.fillStyle(0x4169E1);
-        dwarfGraphics.fillRect(8, 24, 16, 24);
-        
-        dwarfGraphics.fillStyle(0xFDB797);
-        dwarfGraphics.fillRect(8, 12, 16, 12);
-        
-        dwarfGraphics.fillStyle(0x808080);
-        dwarfGraphics.fillRect(6, 8, 20, 8);
-        
-        dwarfGraphics.fillStyle(0xA9A9A9);
+        // Helmet horns (lighter gold)
+        dwarfGraphics.fillStyle(0xDAA520);
         dwarfGraphics.fillRect(4, 4, 4, 8);
         dwarfGraphics.fillRect(24, 4, 4, 8);
         
+        // Beard (darker brown)
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(6, 20, 20, 8);
         
+        // Axe handle (dark brown with pattern)
+        dwarfGraphics.fillStyle(0x654321);
+        dwarfGraphics.fillRect(24, 28, 16, 4);
+        // Handle pattern
         dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(24, 28, 8, 4);
+        dwarfGraphics.fillRect(26, 28, 2, 4);
+        dwarfGraphics.fillRect(30, 28, 2, 4);
+        dwarfGraphics.fillRect(34, 28, 2, 4);
         
-        dwarfGraphics.fillStyle(0xC0C0C0);
-        dwarfGraphics.fillRect(28, 24, 12, 12);
+        // Axe head (double-sided with patterns)
+        // Main blade body
+        dwarfGraphics.fillStyle(0xA0A0A0);
+        dwarfGraphics.fillRect(28, 20, 20, 20);  // Larger base for the head
+        
+        // Triangular cutouts (black)
+        dwarfGraphics.fillStyle(0x000000);
+        // Left side cutouts
+        dwarfGraphics.fillRect(32, 24, 2, 2);
+        dwarfGraphics.fillRect(32, 34, 2, 2);
+        // Right side cutouts
+        dwarfGraphics.fillRect(42, 24, 2, 2);
+        dwarfGraphics.fillRect(42, 34, 2, 2);
+        
+        // Edge details and highlights
+        dwarfGraphics.fillStyle(0x808080);
+        // Left blade
+        dwarfGraphics.fillRect(28, 20, 4, 20);
+        // Right blade
+        dwarfGraphics.fillRect(44, 20, 4, 20);
+        
+        // Sharp edge highlights
+        dwarfGraphics.fillStyle(0xFFFFFF);
+        // Left edge
+        dwarfGraphics.fillRect(28, 21, 1, 18);
+        // Right edge
+        dwarfGraphics.fillRect(47, 21, 1, 18);
+        
+        // Center geometric pattern
+        dwarfGraphics.fillStyle(0x909090);
+        dwarfGraphics.fillRect(36, 25, 4, 10);
+        
+        // Belt
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(8, 36, 16, 2);
+
+        // Legs (orange/brown to match tunic)
+        dwarfGraphics.fillStyle(0xD2691E);
+        dwarfGraphics.fillRect(12, 48, 8, 8);  // Legs together
+
+        dwarfGraphics.generateTexture('dwarf-stand', 44, 56);
+        dwarfGraphics.clear();
+
+        // Create walking frame 1 (similar upper body, different leg positions)
+        // Body (orange/brown tunic)
+        dwarfGraphics.fillStyle(0xD2691E);
+        dwarfGraphics.fillRect(8, 24, 16, 24);
+        
+        // Head
+        dwarfGraphics.fillStyle(0xFDB797);
+        dwarfGraphics.fillRect(8, 12, 16, 12);
+        
+        // Eyes (black)
+        dwarfGraphics.fillStyle(0x000000);
+        dwarfGraphics.fillRect(11, 16, 2, 2);  // Left eye
+        dwarfGraphics.fillRect(19, 16, 2, 2);  // Right eye
+        
+        // Helmet (bronze/gold)
+        dwarfGraphics.fillStyle(0xCD853F);
+        dwarfGraphics.fillRect(6, 8, 20, 8);
+        
+        // Helmet horns (lighter gold)
+        dwarfGraphics.fillStyle(0xDAA520);
+        dwarfGraphics.fillRect(4, 4, 4, 8);
+        dwarfGraphics.fillRect(24, 4, 4, 8);
+        
+        // Beard (darker brown)
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(6, 20, 20, 8);
+        
+        // Axe handle (dark brown with pattern)
+        dwarfGraphics.fillStyle(0x654321);
+        dwarfGraphics.fillRect(24, 28, 16, 4);
+        // Handle pattern
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(26, 28, 2, 4);
+        dwarfGraphics.fillRect(30, 28, 2, 4);
+        dwarfGraphics.fillRect(34, 28, 2, 4);
+        
+        // Axe head (double-sided with patterns)
+        // Main blade body
+        dwarfGraphics.fillStyle(0xA0A0A0);
+        dwarfGraphics.fillRect(28, 20, 20, 20);  // Larger base for the head
+        
+        // Triangular cutouts (black)
+        dwarfGraphics.fillStyle(0x000000);
+        // Left side cutouts
+        dwarfGraphics.fillRect(32, 24, 2, 2);
+        dwarfGraphics.fillRect(32, 34, 2, 2);
+        // Right side cutouts
+        dwarfGraphics.fillRect(42, 24, 2, 2);
+        dwarfGraphics.fillRect(42, 34, 2, 2);
+        
+        // Edge details and highlights
+        dwarfGraphics.fillStyle(0x808080);
+        // Left blade
+        dwarfGraphics.fillRect(28, 20, 4, 20);
+        // Right blade
+        dwarfGraphics.fillRect(44, 20, 4, 20);
+        
+        // Sharp edge highlights
+        dwarfGraphics.fillStyle(0xFFFFFF);
+        // Left edge
+        dwarfGraphics.fillRect(28, 21, 1, 18);
+        // Right edge
+        dwarfGraphics.fillRect(47, 21, 1, 18);
+        
+        // Center geometric pattern
+        dwarfGraphics.fillStyle(0x909090);
+        dwarfGraphics.fillRect(36, 25, 4, 10);
+        
+        // Belt
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(8, 36, 16, 2);
 
         // Legs apart (walking)
-        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillStyle(0xD2691E);
         dwarfGraphics.fillRect(8, 48, 8, 8);   // Left leg
         dwarfGraphics.fillRect(16, 48, 8, 8);  // Right leg
 
-        dwarfGraphics.generateTexture('dwarf-walk1', 40, 56);
+        dwarfGraphics.generateTexture('dwarf-walk1', 44, 56);
         dwarfGraphics.clear();
 
-        // Create walking frame 2
-        // Body and upper parts (same as standing)
-        dwarfGraphics.fillStyle(0x4169E1);
+        // Create walking frame 2 (similar upper body, different leg positions)
+        // Body (orange/brown tunic)
+        dwarfGraphics.fillStyle(0xD2691E);
         dwarfGraphics.fillRect(8, 24, 16, 24);
         
+        // Head
         dwarfGraphics.fillStyle(0xFDB797);
         dwarfGraphics.fillRect(8, 12, 16, 12);
         
-        dwarfGraphics.fillStyle(0x808080);
+        // Eyes (black)
+        dwarfGraphics.fillStyle(0x000000);
+        dwarfGraphics.fillRect(11, 16, 2, 2);  // Left eye
+        dwarfGraphics.fillRect(19, 16, 2, 2);  // Right eye
+        
+        // Helmet (bronze/gold)
+        dwarfGraphics.fillStyle(0xCD853F);
         dwarfGraphics.fillRect(6, 8, 20, 8);
         
-        dwarfGraphics.fillStyle(0xA9A9A9);
+        // Helmet horns (lighter gold)
+        dwarfGraphics.fillStyle(0xDAA520);
         dwarfGraphics.fillRect(4, 4, 4, 8);
         dwarfGraphics.fillRect(24, 4, 4, 8);
         
+        // Beard (darker brown)
         dwarfGraphics.fillStyle(0x8B4513);
         dwarfGraphics.fillRect(6, 20, 20, 8);
         
+        // Axe handle (dark brown with pattern)
+        dwarfGraphics.fillStyle(0x654321);
+        dwarfGraphics.fillRect(24, 28, 16, 4);
+        // Handle pattern
         dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(24, 28, 8, 4);
+        dwarfGraphics.fillRect(26, 28, 2, 4);
+        dwarfGraphics.fillRect(30, 28, 2, 4);
+        dwarfGraphics.fillRect(34, 28, 2, 4);
         
-        dwarfGraphics.fillStyle(0xC0C0C0);
-        dwarfGraphics.fillRect(28, 24, 12, 12);
+        // Axe head (double-sided with patterns)
+        // Main blade body
+        dwarfGraphics.fillStyle(0xA0A0A0);
+        dwarfGraphics.fillRect(28, 20, 20, 20);  // Larger base for the head
+        
+        // Triangular cutouts (black)
+        dwarfGraphics.fillStyle(0x000000);
+        // Left side cutouts
+        dwarfGraphics.fillRect(32, 24, 2, 2);
+        dwarfGraphics.fillRect(32, 34, 2, 2);
+        // Right side cutouts
+        dwarfGraphics.fillRect(42, 24, 2, 2);
+        dwarfGraphics.fillRect(42, 34, 2, 2);
+        
+        // Edge details and highlights
+        dwarfGraphics.fillStyle(0x808080);
+        // Left blade
+        dwarfGraphics.fillRect(28, 20, 4, 20);
+        // Right blade
+        dwarfGraphics.fillRect(44, 20, 4, 20);
+        
+        // Sharp edge highlights
+        dwarfGraphics.fillStyle(0xFFFFFF);
+        // Left edge
+        dwarfGraphics.fillRect(28, 21, 1, 18);
+        // Right edge
+        dwarfGraphics.fillRect(47, 21, 1, 18);
+        
+        // Center geometric pattern
+        dwarfGraphics.fillStyle(0x909090);
+        dwarfGraphics.fillRect(36, 25, 4, 10);
+        
+        // Belt
+        dwarfGraphics.fillStyle(0x8B4513);
+        dwarfGraphics.fillRect(8, 36, 16, 2);
 
         // Legs more apart (walking)
-        dwarfGraphics.fillStyle(0x4169E1);
+        dwarfGraphics.fillStyle(0xD2691E);
         dwarfGraphics.fillRect(4, 48, 8, 8);   // Left leg
         dwarfGraphics.fillRect(20, 48, 8, 8);  // Right leg
 
-        dwarfGraphics.generateTexture('dwarf-walk2', 40, 56);
+        dwarfGraphics.generateTexture('dwarf-walk2', 44, 56);
         dwarfGraphics.clear();
 
         const dwarfSprite = this.add.sprite(400, 300, 'dwarf-stand');
