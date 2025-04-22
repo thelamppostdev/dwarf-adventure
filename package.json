@@ -1,0 +1,16 @@
+{
+  "name": "dwarf-adventure",
+  "version": "1.0.0",
+  "description": "A pixelated dwarf adventure game",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "phaser": "^3.70.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
