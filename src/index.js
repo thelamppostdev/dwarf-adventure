@@ -148,51 +148,47 @@ class MainScene extends Phaser.Scene {
         dwarfGraphics.clear();
 
         // Create axe sprite
-        // Axe handle (dark brown with pattern)
-        dwarfGraphics.fillStyle(0x654321);
-        dwarfGraphics.fillRect(0, 0, 32, 4);
-        // Handle pattern
-        dwarfGraphics.fillStyle(0x8B4513);
-        dwarfGraphics.fillRect(2, 0, 2, 4);
-        dwarfGraphics.fillRect(6, 0, 2, 4);
-        dwarfGraphics.fillRect(10, 0, 2, 4);
-        dwarfGraphics.fillRect(14, 0, 2, 4);
-        dwarfGraphics.fillRect(18, 0, 2, 4);
-        dwarfGraphics.fillRect(22, 0, 2, 4);
-        dwarfGraphics.fillRect(26, 0, 2, 4);
+        // Axe handle (wooden with binding)
+        dwarfGraphics.fillStyle(0x8B4513);  // Dark wood brown
+        dwarfGraphics.fillRect(0, 0, 24, 3);
         
-        // Axe head (double-sided with patterns)
-        dwarfGraphics.fillStyle(0xA0A0A0);
-        dwarfGraphics.fillRect(20, -16, 24, 24);
+        // Handle bindings (yellow/gold)
+        dwarfGraphics.fillStyle(0xFFD700);
+        dwarfGraphics.fillRect(4, 0, 2, 3);
+        dwarfGraphics.fillRect(12, 0, 2, 3);
+        dwarfGraphics.fillRect(20, 0, 2, 3);
         
-        // Triangular cutouts (black)
-        dwarfGraphics.fillStyle(0x000000);
-        // Left side cutouts
-        dwarfGraphics.fillRect(24, -12, 2, 2);
-        dwarfGraphics.fillRect(24, 0, 2, 2);
-        // Right side cutouts
-        dwarfGraphics.fillRect(36, -12, 2, 2);
-        dwarfGraphics.fillRect(36, 0, 2, 2);
-        
-        // Edge details and highlights
+        // Axe head
+        // Base metal (medium gray)
         dwarfGraphics.fillStyle(0x808080);
-        // Left blade
-        dwarfGraphics.fillRect(20, -16, 4, 24);
-        // Right blade
-        dwarfGraphics.fillRect(40, -16, 4, 24);
+        // Main head shape
+        dwarfGraphics.fillRect(16, -6, 4, 8);   // Base connection
+        dwarfGraphics.fillRect(20, -8, 4, 10);  // Start widening
+        dwarfGraphics.fillRect(24, -10, 4, 12); // Full width
+        dwarfGraphics.fillRect(28, -10, 4, 12); // Full width
+        dwarfGraphics.fillRect(32, -8, 4, 10);  // Start taper
+        dwarfGraphics.fillRect(36, -6, 2, 8);   // Tip
         
-        // Sharp edge highlights
+        // Darker metal details
+        dwarfGraphics.fillStyle(0x606060);
+        dwarfGraphics.fillRect(20, -8, 16, 2);  // Top shadow
+        dwarfGraphics.fillRect(20, 0, 16, 2);   // Bottom shadow
+        
+        // Lighter metal highlights
+        dwarfGraphics.fillStyle(0xA0A0A0);
+        dwarfGraphics.fillRect(24, -10, 8, 2);  // Top highlight
+        dwarfGraphics.fillRect(32, -8, 4, 2);   // Upper middle
+        dwarfGraphics.fillRect(36, -6, 2, 2);   // Tip highlight
+        
+        // Brightest edge highlights
+        dwarfGraphics.fillStyle(0xC0C0C0);
+        dwarfGraphics.fillRect(24, -6, 12, 2);  // Middle highlight
+        
+        // Edge highlight
         dwarfGraphics.fillStyle(0xFFFFFF);
-        // Left edge
-        dwarfGraphics.fillRect(20, -15, 1, 22);
-        // Right edge
-        dwarfGraphics.fillRect(43, -15, 1, 22);
-        
-        // Center geometric pattern
-        dwarfGraphics.fillStyle(0x909090);
-        dwarfGraphics.fillRect(28, -8, 8, 16);
+        dwarfGraphics.fillRect(36, -4, 2, 2);   // Sharp edge highlight
 
-        dwarfGraphics.generateTexture('axe', 44, 8);
+        dwarfGraphics.generateTexture('axe', 40, 8);
         dwarfGraphics.clear();
 
         const dwarfSprite = this.add.sprite(400, 300, 'dwarf-stand');
@@ -382,19 +378,84 @@ class MainScene extends Phaser.Scene {
                 .setScrollFactor(0.1);
         }
 
+        // Mountain colors for different layers
+        const mountainColors = {
+            distant: [0x4A4A4A, 0x3A3A3A, 0x2A2A2A],  // Darker grays
+            middle: [0x3A3A3A, 0x2A2A2A, 0x1A1A1A]   // Even darker grays
+        };
+
         // Distant mountains (slow parallax)
-        for (let i = 0; i < 5; i++) {
-            const x = i * 800;
-            const height = Phaser.Math.Between(100, 200);
-            this.add.triangle(x, this.worldHeight - height/2, 0, height, 400, 0, 800, height, 0x4A4A4A)
+        for (let i = 0; i < 8; i++) {
+            const x = i * 600;
+            const height = Phaser.Math.Between(100, 300);
+            const width = Phaser.Math.Between(400, 800);
+            const color = Phaser.Math.RND.pick(mountainColors.distant);
+            
+            // Create mountain with multiple peaks
+            const mountain = this.add.graphics();
+            mountain.fillStyle(color);
+            
+            // Base of mountain
+            mountain.beginPath();
+            mountain.moveTo(x, this.worldHeight);
+            mountain.lineTo(x + width, this.worldHeight);
+            
+            // Create 2-4 peaks
+            const numPeaks = Phaser.Math.Between(2, 4);
+            const peakWidth = width / (numPeaks + 1);
+            
+            for (let p = 0; p < numPeaks; p++) {
+                const peakX = x + (p + 1) * peakWidth;
+                const peakHeight = height * Phaser.Math.FloatBetween(0.8, 1.2);
+                mountain.lineTo(peakX, this.worldHeight - peakHeight);
+            }
+            
+            mountain.closePath();
+            mountain.fillPath();
+            
+            mountain.generateTexture('distantMountain' + i, width, height);
+            this.add.image(x, this.worldHeight, 'distantMountain' + i)
+                .setOrigin(0, 1)
                 .setScrollFactor(0.2);
         }
 
         // Middle-ground mountains (medium parallax)
-        for (let i = 0; i < 8; i++) {
-            const x = i * 600;
-            const height = Phaser.Math.Between(150, 250);
-            this.add.triangle(x, this.worldHeight - height/2, 0, height, 300, 0, 600, height, 0x3A3A3A)
+        for (let i = 0; i < 12; i++) {
+            const x = i * 400;
+            const height = Phaser.Math.Between(150, 350);
+            const width = Phaser.Math.Between(300, 600);
+            const color = Phaser.Math.RND.pick(mountainColors.middle);
+            
+            // Create mountain with more detailed shape
+            const mountain = this.add.graphics();
+            mountain.fillStyle(color);
+            
+            // Base of mountain
+            mountain.beginPath();
+            mountain.moveTo(x, this.worldHeight);
+            mountain.lineTo(x + width, this.worldHeight);
+            
+            // Create 3-5 peaks with varying heights
+            const numPeaks = Phaser.Math.Between(3, 5);
+            const basePeakWidth = width / (numPeaks + 1);
+            
+            for (let p = 0; p < numPeaks; p++) {
+                const peakX = x + (p + 1) * basePeakWidth;
+                const peakHeight = height * Phaser.Math.FloatBetween(0.7, 1.3);
+                const jaggedWidth = Phaser.Math.Between(50, 100);
+                
+                // Create jagged peak
+                mountain.lineTo(peakX - jaggedWidth/2, this.worldHeight - peakHeight * 0.8);
+                mountain.lineTo(peakX, this.worldHeight - peakHeight);
+                mountain.lineTo(peakX + jaggedWidth/2, this.worldHeight - peakHeight * 0.8);
+            }
+            
+            mountain.closePath();
+            mountain.fillPath();
+            
+            mountain.generateTexture('middleMountain' + i, width, height);
+            this.add.image(x, this.worldHeight, 'middleMountain' + i)
+                .setOrigin(0, 1)
                 .setScrollFactor(0.4);
         }
     }
